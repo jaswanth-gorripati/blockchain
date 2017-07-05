@@ -1,0 +1,68 @@
+<div ng-if="enrolled" class="well">
+<!-- Registration code -->
+	<div  class="col-md-20 well">
+		<button  class="btn btn-default"  ng-click="showRegForm()" style="margin-left:35%;margin-top:10px;display:inline">Register New Student</button>
+		<button  class="btn btn-default" ng-click="showAEForm()" style="margin-left:5px;margin-top:10px;display:inline">Update Student Education</button>	
+	</div>
+	<div class="col-md-20" >
+	<p  class="text-center panel-heading"><h3 ng-if="showRegistration" style="display:inline"> Register</h3><h3 ng-if="addOnlyEdu" style="display:inline"> Add Education to</h3> <h3 style="display:inline" ng-if="showRegistration ||addOnlyEdu"> Student details  </h3></p><br>
+	<div class="form-signin" ng-if="showRegistration">
+		<div class="col-lg-4 info"> 
+			<label for="file-upload" class="custom-file-upload" style="margin-top: 10px">
+   				<button class="btn btn-primary" ng-click="showFiles()"><span ng-if="fileInfo[0].name ==undefined">Choose Profile Picture {{fileInfo[0].name}}</span><span ng-if="fileInfo[0].name!==undefined"> Change File : {{fileInfo[0].name}}</span></button></label><input type="file" id="file" style="display: none;" name="file" onchange="angular.element(this).scope().profilePic('file')"/>
+		</div>
+		<div class="col-lg-3 info"> 
+			<label> student ID</label>
+			<input type="text"  class="form-control" placeholder="Student Name" ng-model="studentDetails.studentId" required>	
+		</div>
+       		<div class="col-lg-4 info"> 
+			<label> student Full Name</label>
+			<input type="text"  class="form-control" placeholder="Student Name" ng-model="studentDetails.studentName" required>	
+		</div>
+		<div class="col-lg-5 info"> 
+			<label> DOB</label>
+			<input type="text"  class="form-control"  ng-model="studentDetails.studentDOB" required >	
+		</div>
+		<div class="col-lg-2 info"> 
+			<label> Gender</label><br>
+			<label for="male">Male</label>
+			<input type="radio" id="male" name="gender" value="male"  ng-model="studentDetails.studentGender">
+			<label for="female">Female</label> 
+			<input type="radio" id="female" name="gender" value="female"  ng-model="studentDetails.studentGender">	
+		</div>
+		<div class="col-md-12 container" style="background-color:lightgrey;margin:10px 0px;max-height:40px;boredr-radius:4px"><span style="display:inline;"><i ng-click="addEducation()" style="display: inline;" class="fa fa-plus-square click" ></i> Add Education </span>
+		</div>
+	</div>
+	<div class="col-lg-12" ng-if="addEducationList || addOnlyEdu">
+		<div class="col-lg-6 info" ng-if = "addOnlyEdu"> 
+			<label> StudentID </label>
+			<input type="text" id="inputPassword" class="form-control"  ng-model="studentDetails.studentId" required >	
+		</div>
+		<div class="col-lg-6 info"> 
+			<label> Standard </label>
+			<input type="text" id="inputPassword" class="form-control"  ng-model="studentDetails.studentDegree" required >	
+		</div>
+		<div class="col-lg-6 info"> 
+			<label> Board </label>
+			<input type="text" class="form-control"  ng-model="studentDetails.studentBoard" required >	
+		</div>
+		<div class="col-lg-6 info"> 
+			<label> institute name Name </label>
+			<input type="text"  class="form-control"  ng-model="studentDetails.studentInstitute" required >	
+		</div>
+		<div class="col-lg-6 info"> 
+			<label> year of Passed Out </label>
+			<input type="text"  class="form-control"  ng-model="studentDetails.studentPassedOut" required >	
+		</div>
+		<div class="col-lg-6 info"> 
+			<label> Aggregrate </label>
+			<input type="text" id="inputPassword" class="form-control"   ng-model="studentDetails.studentScore" required >	
+		</div>
+	</div>
+	<br><br>
+		<div style="clear:both"></div> 
+		<div style="margin-left:45%;margin-top:10px;"><button class="btn btn-primary" ng-if = "showRegistration" ng-click="registerStudent()">Register</button></div>
+		<button class="btn btn-primary" ng-if = "addOnlyEdu" ng-click="appendEducation()" style="margin-left:45%;margin-top:10px;">Update Education</button>
+        </div>
+	</div>
+	</div>

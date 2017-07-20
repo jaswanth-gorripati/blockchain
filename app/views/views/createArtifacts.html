@@ -1,0 +1,83 @@
+<div ng-if="enrolled">
+<div class="container-fluid col-sm-3">
+      <div class="row">
+        <div class="col-sm-12 col-md-12 sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="sn active" ng-click="displayForm(0)">Create Channel <span class="sr-only">(current)</span></li>
+            <li class="sn" ng-click="displayForm(1)">Join Channel</li>
+            <li class="sn" ng-click="displayForm(4)">get peers</li>
+            <li class="sn" ng-click="displayForm(2)">Install Chaincode </li>
+            <li class="sn" ng-click="displayForm(3)">Instantiate Chaincode</li>
+          </ul>
+        </div>
+	</div>
+</div>
+	<div class="col-sm-8">
+		<form class="form-signin col-sm-10" ng-if="formNumber[0]">
+			<h2 class="form-signin-heading">Create Channel</h2><br>
+			<label for="channelName"  >Channel Name</label>
+				<input type="text" id="channelName" class="form-control info" placeholder="mychannel" ng-model="formData.channelName" required autofocus ><br>
+			<label for="path"  >ConfigPath</label>
+				<input type="text" id="path" class="form-control info" placeholder="../artifacts/channel/mychannel.tx" ng-model="formData.channelConfigPath"  ><br>
+			<button class="btn btn-lg btn-primary " ng-click="createChannel()" type="submit">create channel</button>
+	      </form>
+	      <form class="form-signin col-lg-8" ng-if="formNumber[1]">
+			<h2 class="form-signin-heading">Join Chaincode</h2><br>
+			<div>
+			<label for="inputEmail"  >Channel Name</label>
+				<input type="text" class="form-control col-sm-5"  ng-model="formData.joinChannelName" >
+			</div>
+			<hr>
+			<div style="margin-top: 30px">
+				<h6 ><span style="color: red">*</span>Select on which peer You want to commit transaction </h6>
+				 <span ng-repeat= "(key,value) in peers">
+					<input type="checkbox" name="peer" ng-model="isChecked" ng-change="selectedPeers(value,$index)"><label for="name">{{key}}</label>
+				</span>
+			</div>
+			<br><button class="btn btn-lg btn-primary " ng-click="joinChannel()" type="submit">Join channel</button>
+	      </form>
+	       <form class="form-signin col-lg-8" ng-if="formNumber[4]">
+			<h2 class="form-signin-heading">Get peers</h2><br>
+			<div>
+				<label for="inputEmail"  >Channel Name</label>
+					<input type="text" class="form-control col-sm-5"  ng-model="formData.joinChannelName" >
+			</div>
+			<button class="btn btn-lg btn-primary " ng-click="getPeers()" type="submit">Get Peers</button>
+	      </form>
+	      <form class="form-signin col-lg-8" ng-if="formNumber[2]">
+			<h2 class="form-signin-heading">Install Channel</h2><br>
+			<label for="inputEmail"  >Chaincode Name</label>
+				<input type="text" id="inputEmail" class="form-control info" placeholder="chaincode name" ng-model="formData.chainName" required autofocus ><br>
+			<label for="inputPassword"  >Chaincode Path</label>
+				<input type="text" id="inputPassword" class="form-control info" placeholder="github.com/chaincodes" ng-model="formData.chainPath" disabled ><br>
+			<label for="chainVersion"  >Chaincode Version</label>
+				<input type="text" id="chainVersion" class="form-control info" placeholder="ex : v0" ng-model="formData.chainVersion" required ><br>
+				<div>
+				<h6> <span style="color: red">*</span>Select on which peer You want to commit transaction </h6>
+				<span ng-repeat= "(key,value) in peers">
+					&nbsp;<input type="checkbox" name="peer" ng-model="isChecked" ng-change="selectedPeers(value,$index)"><label for="name">{{key}}</label>
+				</span>
+				</div>
+				<br>
+			<button class="btn btn-lg btn-primary btn-center" ng-click="installChaincode()" type="submit">Install Chaincode</button>
+	      </form>
+	      <form class="form-signin col-lg-8" ng-if="formNumber[3]">
+			<h2 class="form-signin-heading">Instantiate Chaincode</h2><br>
+			<label for="inputEmail"  >Channel Name</label>
+				<input type="text" class="form-control info"  ng-model="formData.joinChannelName" required autofocus >
+			<label for="inputEmail"  >Chaincode Name</label>
+				<input type="text" id="inputEmail" class="form-control info" placeholder="chaincode name" ng-model="formData.chainName" required ><br>
+			<label for="inputPassword"  >Chaincode Path</label>
+				<input type="text" id="inputPassword" class="form-control info" placeholder="github.com/chaincodes" ng-model="formData.chainPath" disabled ><br>
+			<label for="chainVersion"  >Chaincode Version</label>
+				<input type="text" id="chainVersion" class="form-control info" placeholder="ex : v0" ng-model="formData.chainVersion" required ><br>
+				<div>
+				<h6> <span style="color: red">*</span>Select on which peer You want to commit transaction </h6>
+				<span ng-repeat= "(key,value) in peers">
+					<input type="checkbox" name="peer" ng-model="isChecked" ng-change="selectedPeers(value,$index)"><label for="name">{{key}}</label>
+				</span>
+				</div><br>
+			<button class="btn btn-lg btn-primary " ng-click="instantiateChaincode()" type="submit">Instantiate Chaincode</button>
+	      </form>	
+      </div>
+</div>

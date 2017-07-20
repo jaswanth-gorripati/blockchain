@@ -1,0 +1,177 @@
+<div class="container" ng-if="enrolled">
+	<div class="col-sm-5">
+		<button class="btn btn-default" ng-click="displayForm(0)">search all Updates of Student</button>
+	</div>
+	<div class="col-sm-5">
+		<button class="btn btn-default" ng-click="displayForm(1)">search Students Information</button>
+	</div><br>
+	<div style="clear: both;"></div>
+	<h2></h2>
+	<div>
+	<form class="form-signin col-sm-6" ng-if="Dform[0]" style="border: 1px lightblue">
+		<label for="inputEmail" >Student Id</label>
+			<input type="text" class="form-control info col-sm-5" placeholder="enter student id" ng-model="getById.id1" required><br>
+		<label for="inputEmail"  >Channel Name</label>
+			<input type="text" class="form-control info"  ng-model="formData.joinChannelName" required autofocus >
+		<label for="inputEmail"  >Chaincode Name</label>
+			<input type="text" id="inputEmail" class="form-control info" placeholder="chaincode name" ng-model="formData.chainName" required ><br>
+		<label for="chainVersion"  >Chaincode Version</label>
+			<input type="text" id="chainVersion" class="form-control info" placeholder="ex : v0" ng-model="formData.chainVersion" required ><br>
+			<div>
+			<h6> <span style="color: red">*</span>Select on which peer You want to commit transaction </h6>
+			<span ng-repeat= "(key,value) in peers">
+				<input type="checkbox" name="peer" ng-model="isChecked" ng-change="selectedPeers(value,$index)"><label for="name">{{key}}</label>
+			</span><br>	
+		<input type="button" class="btn btn-primary" ng-click="displayStudentDetails()" value="Updated info list">
+	</form>	
+	</div>
+	<div>
+	<form class="form-signin col-sm-6" ng-if="Dform[1]" style="border: 1px lightblue">
+		<label> Student Id</label>
+			<input type="text" class="form-control info col-sm-5" placeholder="enter student id" ng-model="getById.id" required><br>
+		<label for="inputEmail"  >Channel Name</label>
+			<input type="text" class="form-control info"  ng-model="formData.joinChannelName" required autofocus >
+		<label for="inputEmail"  >Chaincode Name</label>
+			<input type="text" id="inputEmail" class="form-control info" placeholder="chaincode name" ng-model="formData.chainName" required ><br>
+		<label for="chainVersion"  >Chaincode Version</label>
+			<input type="text" id="chainVersion" class="form-control info" placeholder="ex : v0" ng-model="formData.chainVersion" required ><br>
+			<div>
+			<h6> <span style="color: red">*</span>Select on which peer You want to commit transaction </h6>
+			<span ng-repeat= "(key,value) in peers">
+				<input type="checkbox" name="peer" ng-model="isChecked" ng-change="selectedPeers(value,$index)"><label for="name">{{key}}</label>
+			</span><br>
+		<input type="button" class="btn btn-primary" ng-click="displayDetails()" value="Student Details">	
+	</form>
+	</div>
+	<br>
+	<div>
+		<table class="table table-striped" ng-if="showTable">
+			<thead>
+				<td><label>Profile</label></td>
+				<td><label>Created By & time</label></td>
+				<td><label>Sudent Name</label></td>
+				<td><label>Student DOB</label></td>
+				<td><label>Gender</label></td>
+				<td ng-if="studentInformation[0].education != undefined"><label>Education</label></td>
+					
+			</thead>
+			<tbody>
+				<tr ng-repeat = "details in studentInformation">
+					<td><img data-ng-src="{{details.profilePic}}" style="height: 100px;width: 100px;border-radius: 50px" /></td>
+					<td><b>BY</b>: {{details.createdBy}} <b>Time</b>{{details.createdTime| date}}</td>
+					<td>{{details.username}}</td>
+					<td>{{details.DateOfBirth | date}}</td>
+					<td>{{details.gender}}</td>
+			
+					<!--<td><td ng-repeat= "edu in details.education"><td>INSTITUTE :{{edu.Institute}}</td><td>Degree :{{edu.degree}}</td> <td>Board :{{edu.board}}</td><td>score :{{edu.score}}</td><td>Year of passed out :{{edu.yearOfPassout}}</td></td></td>-->
+					<td>
+					<table class="table table-bordered">
+					<thead ng-if="studentInformation[0].education != undefined">
+						<td>DEGREE</td>
+						<td>BOARD</td>
+						<td>INSTITUTE</td>
+						<td>AGREGRATE</td>
+						<td>YEAR OF PASS OUT</td>
+						<td>ADDED BY</td>
+						<td ng-if="showAuth || canUpdateList.length"><label>Options</label></td>
+
+					</thead>
+					<tbody>
+						<tr ng-repeat = "edu in details.education">
+							<td>{{edu.degree}}</td>
+							<td>{{edu.board}}</td>
+							<td>{{edu.Institute}}</td>
+							<td>{{edu.score}}</td>
+							<td>{{edu.yearOfPassout}}</td>
+							<td>{{edu.addedBy}} @ {{edu.addedTime| date}}</td>
+							<td ng-if="showAuth"><button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal" ng-click="setAuth($parent.$parent.$index,$index,1)">Edit Authentication</button>
+							<td ng-if="canUpdateList[$parent.$index][$index]"><button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal1" ng-click="setAuth($parent.$parent.$index,$index,2)">Update</button></td>
+						</tr>
+					</tbody>
+					</table>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div id="myModal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal">&times;</button>
+		<h4 class="modal-title">Edit Authenticate</h4>
+	      </div>
+	      <div class="modal-body">
+		<form class="form">
+		  <div class="form-group">
+		    <label for="email">UserName</label>
+		    <input type="text" class="form-control" id="UserName" ng-model="formData.userName">
+		  </div>
+		  <div class="form-group">
+		    <label for="pwd">Working Place</label>
+		    <input type="text" class="form-control" id="worksAt" ng-model="formData.worksAt">
+		  </div>
+		  <div class="form-group">
+		    <label for="pwd">Working Position</label>
+		    <input type="text" class="form-control" id="worksAs" ng-model="formData.worksAs">
+		  </div>
+		</form>
+	      </div>
+	      <div class="modal-footer">
+		<button type="button" class="btn btn-primary pull-left" data-dismiss="modal" ng-click="editAuth()">Update</button>
+		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<div id="myModal1" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal">&times;</button>
+		<h4 class="modal-title">Update Details</h4>
+	      </div>
+	      <div class="modal-body">
+		<form class="form">
+		  <div class="form-group col-sm-6">
+		    <label for="email">DEGREE</label>
+		    <input type="text" class="form-control" id="degree" ng-model="formData.studentDegree">
+		  </div>
+		  <div class="form-group col-sm-6">
+		    <label for="board">BOARD</label>
+		    <input type="text" class="form-control" id="board" ng-model="formData.studentBoard">
+		  </div>
+		  <div class="form-group col-sm-12">
+		    <label for="institute">INSTITUTE</label>
+		    <input type="text" class="form-control" id="institute" ng-model="formData.studentInstitute">
+		  </div>
+		  <div class="form-group col-sm-6">
+		    <label for="pwd">AGREGRATE</label>
+		    <input type="text" class="form-control" id="score" ng-model="formData.studentScore">
+		  </div>
+		  <div class="form-group col-sm-6">
+		    <label for="pwd">YEAR OF PASS OUT</label>
+		    <input type="text" class="form-control" id="passesOut" ng-model="formData.studentPassedOut">
+		  </div>
+		  <div style="clear:both;"></div>
+		</form>
+	      </div>
+	      <div class="modal-footer">
+		<button type="button" class="btn btn-primary pull-left" data-dismiss="modal" ng-click="updateEducation()">Update</button>
+		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+
+	  </div>
+	</div>
+
+
+	<h3 ng-if="noData" class="text-center" style="color:red">No Records Found  :(</h3>
+	</div>
+	</div>
+	</div> 
+

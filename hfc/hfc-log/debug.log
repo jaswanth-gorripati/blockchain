@@ -1,5 +1,0 @@
-{"debug":"/home/jaswanth/goProjects/src/github.com/hyperledger/fabric-sdk-node/hfc/hfc-log/debug.log","error":"/home/jaswanth/goProjects/src/github.com/hyperledger/fabric-sdk-node/hfc/hfc-log/error.log","level":"info","message":"Successfully constructed a winston logger with configurations","timestamp":"2017-05-18T10:00:19.166Z"}
-{"level":"error","message":"[testlogger]: Test logger - error","timestamp":"2017-05-18T10:00:19.167Z"}
-{"level":"warn","message":"[testlogger]: Test logger - warn","timestamp":"2017-05-18T10:00:19.171Z"}
-{"level":"info","message":"[testlogger]: Test logger - info","timestamp":"2017-05-18T10:00:19.171Z"}
-{"level":"debug","message":"[testlogger]: Test logger - debug","timestamp":"2017-05-18T10:00:19.171Z"}
